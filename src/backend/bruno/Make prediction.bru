@@ -5,15 +5,16 @@ meta {
 }
 
 post {
-  url: {{base_url}}/predict
+  url: {{base_url}}/api/v1/predictions
   body: json
   auth: none
 }
 
 body:json {
   {
-    "ticker": "ETH",
+    "ticker": "ETH-USD",
     "days_behind": 60,
-    "days_ahead": 7
+    "days_ahead": 7,
+    "model": "GRU"
   }
 }

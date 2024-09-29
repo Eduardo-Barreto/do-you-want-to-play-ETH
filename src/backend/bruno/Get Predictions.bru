@@ -1,0 +1,15 @@
+meta {
+  name: Get Predictions
+  type: http
+  seq: 4
+}
+
+get {
+  url: {{base_url}}/api/v1/predictions/{{ticker}}
+  body: none
+  auth: none
+}
+
+vars:pre-request {
+  ticker: ETH-USD
+}
