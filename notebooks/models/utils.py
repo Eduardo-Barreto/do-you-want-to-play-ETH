@@ -1,6 +1,10 @@
 import yfinance as yf
 import matplotlib.pyplot as plt
-from sklearn.metrics import mean_squared_error, mean_absolute_error
+from sklearn.metrics import (
+    mean_squared_error,
+    mean_absolute_error,
+    root_mean_squared_error,
+)
 
 
 def split_train_test(data, train_size, test_size):
@@ -17,7 +21,7 @@ def get_metrics(test_data, predictions):
     return (
         mean_squared_error(test_data, predictions),
         mean_absolute_error(test_data, predictions),
-        mean_squared_error(test_data, predictions, squared=False),
+        root_mean_squared_error(test_data, predictions),
     )
 
 
