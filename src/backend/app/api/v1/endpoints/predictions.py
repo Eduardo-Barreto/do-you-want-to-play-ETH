@@ -42,7 +42,7 @@ async def create_prediction(
             await db.commit()
             await db.refresh(prediction_entry)
 
-        return PredictionsResponse(**predictions)
+        return PredictionsResponse(predictions=predictions)
 
     except Exception as e:
         print(e)
