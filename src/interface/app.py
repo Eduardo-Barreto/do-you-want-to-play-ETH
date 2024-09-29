@@ -10,7 +10,7 @@ st.write("Escolha o ticker e o intervalo de dias para prever.")
 
 
 def fetch_predictions(ticker, days_behind, days_ahead, model):
-    url = "http://localhost:8000/api/v1/predictions"
+    url = "http://backend:8000/api/v1/predictions"
     payload = {
         "ticker": ticker,
         "days_behind": days_behind,
@@ -34,7 +34,21 @@ def fetch_historical_data(ticker, days_behind):
     return df
 
 
-ticker = st.selectbox("Escolha o Ticker", ["ETH-USD", "BTC-USD"])
+tickers = [
+    "ETH-USD",
+    "BTC-USD",
+    "ADA-USD",
+    "BNB-USD",
+    "XRP-USD",
+    "DOGE-USD",
+    "LTC-USD",
+    "LINK-USD",
+    "BCH-USD",
+    "XLM-USD",
+    "ETC-USD"
+]
+
+ticker = st.selectbox("Escolha o Ticker", tickers)
 days_behind = st.slider("Dias Passados", 30, 365, 60)
 days_ahead = st.slider("Dias à Frente (Previsão)", 1, 30, 7)
 
