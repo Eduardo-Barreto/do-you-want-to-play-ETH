@@ -24,9 +24,9 @@ class LSTMModel(PredictionModel):
     def train(self, train_data):
         time_step = train_data.shape[0] // 5
 
-        scaled_data, self.scaler = self.preprocess_data(train_data)
+        self.scaled_data, self.scaler = self.preprocess_data(train_data)
 
-        X, Y = self.create_dataset(scaled_data, time_step)
+        X, Y = self.create_dataset(self.scaled_data, time_step)
         X = X.reshape(X.shape[0], X.shape[1], 1)
 
         self.model = Sequential()
@@ -40,14 +40,15 @@ class LSTMModel(PredictionModel):
         self.model.fit(X, Y, epochs=100, batch_size=32)
 
     def predict(self, days_ahead: int, time_step=60):
-        last_data = self.model.input[-time_step:]
+        last_data = self.scaled_data[-time_step:]
         last_data = last_data.reshape((1, time_step, 1))
 
         predictions = []
         for _ in range(days_ahead):
             pred = self.model.predict(last_data)
             predictions.append(pred[0, 0])
-            last_data = np.append(last_data[:, 1:, :], [[pred]], axis=1)
+            reshaped_pred = pred.reshape((1, 1, 1))
+            last_data = np.append(last_data[:, 1:, :], reshaped_pred, axis=1)
 
         return self.scaler.inverse_transform(
             np.array(predictions).reshape(-1, 1)
