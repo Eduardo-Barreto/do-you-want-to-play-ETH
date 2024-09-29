@@ -4,7 +4,6 @@ import yfinance as yf
 import pandas as pd
 import plotly.express as px
 
-
 st.title("Previsão de Preços de Criptoativos")
 st.write("Escolha o ticker e o intervalo de dias para prever.")
 
@@ -45,21 +44,24 @@ tickers = [
     "LINK-USD",
     "BCH-USD",
     "XLM-USD",
-    "ETC-USD"
+    "ETC-USD",
 ]
 
 ticker = st.selectbox("Escolha o Ticker", tickers)
 days_behind = st.slider("Dias Passados", 30, 365, 60)
 days_ahead = st.slider("Dias à Frente (Previsão)", 1, 30, 7)
 
+models = st.multiselect(
+    "Escolha o(s) Modelo(s) de Previsão",
+    options=["GRU", "LSTM", "ARIMA"],
+    default=["GRU", "LSTM", "ARIMA"],
+)
 
 if st.button("Fazer Previsão"):
     with st.spinner("Carregando previsões..."):
         historical_data = fetch_historical_data(ticker, days_behind)
 
-        models = ["GRU", "LSTM", "ARIMA"]
         predictions = {}
-
         for model in models:
             model_predictions = fetch_predictions(
                 ticker, days_behind, days_ahead, model
