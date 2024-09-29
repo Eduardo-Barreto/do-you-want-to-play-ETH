@@ -1,0 +1,16 @@
+fastapi[standard]
+uvicorn
+sqlalchemy
+alembic
+psycopg2-binary
+asyncpg
+pydantic
+pydantic-settings
+pytest
+httpx
+python-dotenv
+pandas
+scikit-learn
+tensorflow
+yfinance
+statsmodels
