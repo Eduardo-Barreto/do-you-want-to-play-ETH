@@ -1,8 +1,5 @@
 from sqlalchemy import Column, Integer, Float, String, DateTime
-from sqlalchemy.ext.declarative import declarative_base
-import datetime
-
-Base = declarative_base()
+from app.core.db import Base
 
 
 class Prediction(Base):
@@ -12,4 +9,4 @@ class Prediction(Base):
     ticker = Column(String)
     predicted_value = Column(Float)
     actual_value = Column(Float, nullable=True)
-    prediction_date = Column(DateTime, default=datetime.datetime.now)
+    prediction_date = Column(String)
