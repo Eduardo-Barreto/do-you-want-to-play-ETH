@@ -11,8 +11,8 @@ services:
       - "5432:5432"
 
   backend:
-    build: .
-    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+    build: ./src/backend
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000
     ports:
       - "8000:8000"
     depends_on:
@@ -23,7 +23,15 @@ services:
       POSTGRES_DB: crypto_db
       POSTGRES_HOST: db
     volumes:
-      - .:/app
+      - ./src/backend/:/src/backend
+
+  interface:
+    build: ./src/interface
+    container_name: interface
+    ports:
+      - "8501:8501"
+    depends_on:
+      - backend
 
 volumes:
   postgres_data:
