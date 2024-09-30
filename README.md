@@ -2,6 +2,10 @@
 
 Este projeto é um sistema de auxílio à tomada de decisões para investimento em criptoativos, onde uma interface visual permite que o usuário selecione um ticker, visualize dados históricos e obtenha previsões de preços futuros. O sistema usa modelos de Machine Learning, como GRU, LSTM e ARIMA, para gerar previsões com base em dados históricos e está estruturado para rodar em containers Docker.
 
+# Demo
+
+[![Demo](https://img.youtube.com/vi/P0s6q7Tm874/0.jpg)](https://www.youtube.com/watch?v=P0s6q7Tm874)
+
 ## Estrutura do Projeto
 
 O projeto está dividido em duas partes principais:
