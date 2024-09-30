@@ -54,13 +54,13 @@ O projeto está dividido em duas partes principais:
 
 ```bash
 git clone https://github.com/Eduardo-Barreto/do-you-want-to-play-ETH.git
-cd crypto-price-prediction
+cd do-you-want-to-play-ETH
 ```
 
 2. **Inicie os containers com Docker Compose:**
 
 ```bash
-docker-compose up --build
+docker compose up --build
 ```
 
 Isso irá subir três containers:
