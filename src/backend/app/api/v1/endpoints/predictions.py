@@ -12,10 +12,12 @@ from app.schemas.prediction import (
     PredictionsResponse,
     PredictionSchema,
 )
+from app.utils.logger import get_logger 
 import pandas as pd
 
 router = APIRouter(prefix="/predictions")
 prediction_service = PredictionService()
+logger = get_logger()
 
 
 @router.get(
@@ -26,6 +28,7 @@ async def get_predictions(
     ticker: str,
     db: AsyncSession = Depends(get_db),
 ):
+    logger.info(f"Getting predictions for {ticker}")
     predictions = await db.execute(
         select(PredictionModel).where(PredictionModel.ticker == ticker)
     )
@@ -35,6 +38,8 @@ async def get_predictions(
     predictions = [
         PredictionSchema.model_validate(prediction) for prediction in predictions
     ]
+
+    logger.info(f"Got predictions for {ticker}")
 
     return PredictionsResponse(predictions=predictions)
 
@@ -47,6 +52,10 @@ async def create_prediction(
     prediction_request: PredictionCreate,
     db: AsyncSession = Depends(get_db),
 ):
+    logger.info(
+        f"Creating prediction for {prediction_request.ticker} with {prediction_request.model} model"
+    )
+
     prediction_service = PredictionService()
     predictions_response = []
 
@@ -72,6 +81,10 @@ async def create_prediction(
             db.add(prediction_entry)
             await db.commit()
             await db.refresh(prediction_entry)
+
+        logger.info(
+            f"Prediction for {prediction_request.ticker} with {prediction_request.model} model created"
+        )
 
         return PredictionsResponse(predictions=predictions_response)
 
